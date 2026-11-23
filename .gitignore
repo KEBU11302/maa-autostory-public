@@ -152,5 +152,5 @@ desktop.ini
 *.pfx
 *.p12
 *.pem
-tests/fixtures/operator-*
-tests/test_profile099.py
+AutoStory/tests/fixtures/operator-*
+AutoStory/tests/test_profile099.py

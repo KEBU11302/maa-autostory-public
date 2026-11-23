@@ -1,6 +1,6 @@
 # 使用与开发指南
 
-[返回项目首页](../README.md) · [贡献说明](../CONTRIBUTING.md)
+[返回项目首页](../README.md) · [贡献说明](CONTRIBUTING.md)
 
 ## 限制与未验证范围
 
@@ -19,18 +19,18 @@
 
 ## 从源码运行
 
-下列命令均在仓库根目录（`AutoStory`）执行。
+下载或克隆仓库后，将其中的整个 `AutoStory` 文件夹复制到 MAA 安装目录下。下列命令均在这个应用目录中执行，而不是 Git 仓库根目录；放置时保留已有安装数据，先确认目标位置没有同名目录。
 
 ### 1. 目录布局
 
-`autostory/common.py` 把 MAA 根目录解析为仓库目录的**父目录**（或 `AUTOSTORY_ROOT` 的父目录），再从 `MAA/Python` 导入 `asst`、从 MAA 根目录加载 DLL 和资源。最稳妥的布局如下；也可以设置 `AUTOSTORY_ROOT` 指向本仓库，但它的父目录仍必须是 MAA 根目录。
+`autostory/common.py` 把 MAA 根目录解析为应用目录的**父目录**（或 `AUTOSTORY_ROOT` 的父目录），再从 `MAA/Python` 导入 `asst`、从 MAA 根目录加载 DLL 和资源。最稳妥的布局如下；也可以设置 `AUTOSTORY_ROOT` 指向应用目录，但它的父目录仍必须是 MAA 根目录。
 
 ```text
 <MAA 根目录>\
   MAA.exe
   Python\            # 含 asst 包
   resource\          # MAA 任务与模板资源
-  AutoStory\         # 本仓库
+  AutoStory\         # 从本仓库取出的应用目录
 ```
 
 ### 2. 依赖
@@ -41,7 +41,7 @@
 - ADB、Android 模拟器和已登录的明日方舟。
 - 发行版WebView2 桌面窗口需要 Microsoft Edge WebView2 Runtime；Tk 回退窗口需要 Python 的 `tkinter`。构建 WebView host 另需 .NET Framework `csc.exe` 和 WebView2 SDK。
 
-可在仓库目录创建隔离环境：
+可在应用目录创建隔离环境：
 
 ```powershell
 python -m venv .venv
@@ -59,14 +59,14 @@ Copy-Item settings.example.json settings.json
 
 ### 4. 准备关卡目录数据
 
-`data/catalogue.json` 未随源码提交；缺少它时，控制台没有完整关卡目录。生成脚本 [`build_catalogue.py`](../build_catalogue.py) 需要：
+`data/catalogue.json` 未随源码提交；缺少它时，控制台没有完整关卡目录。生成脚本 [`build_catalogue.py`](../AutoStory/build_catalogue.py) 需要：
 
 - `research/gamedata/stage_table.json`
 - `research/gamedata/zone_table.json`
 - `research/gamedata/retro_table.json`
 - MAA 运行时中的 `resource/Arknights-Tile-Pos/overview.json`
 
-前三个文件来自脚本注明的 ArknightsGameData 数据源，需自行准备与目标客户端匹配的数据，并遵守来源条款。在仓库目录运行 `python build_catalogue.py` 后生成本地目录数据。脚本不会自动下载这些输入。
+前三个文件来自脚本注明的 ArknightsGameData 数据源，需自行准备与目标客户端匹配的数据，并遵守来源条款。在应用目录运行 `python build_catalogue.py` 后生成本地目录数据。脚本不会自动下载这些输入。
 
 ### 5. 启动
 
@@ -86,7 +86,7 @@ python worker.py run --chapter CW-EX
 python worker.py run-all
 ```
 
-根目录的 PowerShell/VBS 启动器面向历史打包安装布局，不能代替上述源码环境准备。
+`AutoStory/` 下的 PowerShell/VBS 启动器面向历史打包安装布局，不能代替上述源码环境准备。
 
 ## 构建与打包
 
@@ -115,4 +115,4 @@ powershell -ExecutionPolicy Bypass -File packaging/build_webhost.ps1
 python -m unittest discover -s tests -v
 ```
 
-测试使用 unittest；部分模块直接读取 `release/evidence/flow093x/...`、`tests/FIXTURES_MANIFEST.json`、`bad_assets` 等未随仓库提供的夹具，因此完整套件在当前 checkout 不能视为全绿。[历史开发与验证记录](../CHANGELOG.md) 等是历史本地验证记录，其中的测试数字不是本 checkout 的当前结果，也不代表完整无人值守验收。提交前至少运行与改动相关的测试，并在 PR 中写明未运行的项。
+测试使用 unittest；部分模块直接读取 `release/evidence/flow093x/...`、`tests/FIXTURES_MANIFEST.json`、`bad_assets` 等未随仓库提供的夹具，因此完整套件在当前 checkout 不能视为全绿。[历史开发与验证记录](../AutoStory/CHANGELOG.md) 等是历史本地验证记录，其中的测试数字不是本 checkout 的当前结果，也不代表完整无人值守验收。提交前至少运行与改动相关的测试，并在 PR 中写明未运行的项。

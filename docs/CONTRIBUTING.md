@@ -24,8 +24,8 @@
 
 ## 开发与验证
 
-- 代码入口见 `README.md` 的“源码导航”；主流程从 `worker.py` 进入。
-- 环境与依赖见 [使用指南](docs/USAGE.md)。
+- 代码入口见 [项目首页](../README.md) 的“源码导航”；主流程从 `AutoStory/worker.py` 进入。开发和测试命令在 `AutoStory/` 目录执行。
+- 环境与依赖见 [使用指南](USAGE.md)。
 - 针对改动选择测试，例如 `python -m unittest discover -s tests -p "test_atomic_json.py" -v`；完整发现命令为 `python -m unittest discover -s tests -v`。
 - 完整测试依赖 `release/evidence/...` 等未随仓库提供的夹具，跑不了的部分要在 PR 中写明。
 - 涉及桌面/打包时，说明是否重建了 `webview/AutoStory.WebHost.exe`；源码快照不包含该二进制和 WebView2 DLL。

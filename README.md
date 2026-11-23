@@ -4,25 +4,35 @@
 
 MAA 自动推图助手是面向《明日方舟》的 Windows 本地辅助工具，通过 MAA 的 Python API 和 ADB 实现关卡扫描、作业匹配、演习及作战结果核验。这是独立社区项目，与 MAA 官方团队无隶属关系。
 
-**源码已包含在本仓库中**：核心逻辑在 [`autostory/`](autostory/)，任务入口为 [`worker.py`](worker.py)。可点击 GitHub 页面上的 **Code → Download ZIP** 下载，或执行：
+**源码已包含在本仓库中**：核心逻辑在 [`autostory/`](AutoStory/autostory)，任务入口为 [`worker.py`](AutoStory/worker.py)。可点击 GitHub 页面上的 **Code → Download ZIP** 下载，或执行：
 
 ```powershell
-git clone https://github.com/VerticalSearch/maa-autostory-public.git AutoStory
+git clone https://github.com/VerticalSearch/maa-autostory-public.git
 ```
 
 当前源码版本为 **0.9.44**。仓库提供源码与开发文档；运行需要另行准备 MAA、模拟器和本地数据。许可状态见文末。
+
+## 目录结构
+
+```text
+AutoStory/    源码、配置、启动脚本、测试与构建工具
+docs/         使用指南与贡献说明
+README.md     项目介绍
+```
+
+运行前，将仓库内的整个 `AutoStory` 文件夹放到 MAA 安装目录下；进入该文件夹后执行使用指南中的命令。
 
 ## 源码导航
 
 | 路径 | 作用 |
 |---|---|
-| [`autostory/`](autostory/) | 核心包：控制器、导航、OCR/视觉、作业、恢复、状态；`autostory/core.py` 封装 MaaCore 任务 |
-| [`worker.py`](worker.py) | 命令行任务入口；获取任务锁、写状态、分发 scan/run 等动作 |
-| [`server.py`](server.py) | 仅监听 `127.0.0.1` 的控制面；提供页面 API 并启动 worker |
-| [`desktop.py`](desktop.py) | 统一启动入口：desktop / `--server` / `--worker` / 自检 |
-| [`web/index.html`](web/index.html) | 本地控制台单页；由 `server.py` 注入进程级随机 token |
-| [`tests/`](tests/) | unittest 回归；部分用例依赖未随仓库提供的夹具 |
-| [`packaging/`](packaging/) | PyInstaller spec、构建/安装/审计脚本、C# WebView2 host |
+| [`autostory/`](AutoStory/autostory) | 核心包：控制器、导航、OCR/视觉、作业、恢复、状态；`autostory/core.py` 封装 MaaCore 任务 |
+| [`worker.py`](AutoStory/worker.py) | 命令行任务入口；获取任务锁、写状态、分发 scan/run 等动作 |
+| [`server.py`](AutoStory/server.py) | 仅监听 `127.0.0.1` 的控制面；提供页面 API 并启动 worker |
+| [`desktop.py`](AutoStory/desktop.py) | 统一启动入口：desktop / `--server` / `--worker` / 自检 |
+| [`web/index.html`](AutoStory/web/index.html) | 本地控制台单页；由 `server.py` 注入进程级随机 token |
+| [`tests/`](AutoStory/tests) | unittest 回归；部分用例依赖未随仓库提供的夹具 |
+| [`packaging/`](AutoStory/packaging) | PyInstaller spec、构建/安装/审计脚本、C# WebView2 host |
 
 最短阅读路径：`worker.py` → `autostory/controller.py` → `autostory/navigation.py` → `autostory/core.py`；控制面从 `server.py` 和 `desktop.py` 进入。
 
@@ -41,8 +51,8 @@ git clone https://github.com/VerticalSearch/maa-autostory-public.git AutoStory
 | --- | --- |
 | 准备环境、配置设备、生成关卡目录、从源码启动 | [使用指南](docs/USAGE.md) |
 | 查看构建方法、兼容性限制和测试要求 | [使用与开发指南](docs/USAGE.md) |
-| 反馈问题、提交改动、处理日志与隐私 | [贡献说明](CONTRIBUTING.md) |
-| 查阅旧版本开发与实机验证记录 | [历史记录](CHANGELOG.md)（按原文件名折叠） |
+| 反馈问题、提交改动、处理日志与隐私 | [贡献说明](docs/CONTRIBUTING.md) |
+| 查阅旧版本开发与实机验证记录 | [历史记录](AutoStory/CHANGELOG.md)（按原文件名折叠） |
 
 程序依赖 Windows、MAA 运行时、ADB 和模拟器，关卡数据需自行准备。当前源码不等于完整安装包，也不保证全章节无人值守通关；具体限制见使用指南。
 
